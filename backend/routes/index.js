@@ -1,20 +1,20 @@
-const express = require("express");
-const router = express.Router();
-const userRoutes = require("./userRoute");
-const blogRoutes = require("./blogRoutes");
-const { getBlogs, getAuditLogs } = require("../controllers/blog");
-const {
+import express from "express";
+// import userRoutes from "./userRoute";
+// import blogRoutes from "./blogRoutes";
+// import { getBlogs, getAuditLogs } from ("../controllers/blog");
+import {
   userSignUp,
   getUsers,
   changeUserType,
   userDelete,
-} = require("../controllers/user");
-const { checkAdmin } = require("../middlewares/user");
+} from "../controllers/user.js";
+import { checkAdmin } from "../middlewares/user.js";
+const router = express.Router();
 
 router.get("/", (req, res) => {
   res.redirect("/home");
 });
-router.get("/home", getBlogs);
+// router.get("/home", getBlogs);
 
 router.get("/404", (req, res) => {
   res.render("page404");
@@ -50,4 +50,4 @@ router.get("/admin/auditLogs", checkAdmin(), getAuditLogs);
 router.use("/user", userRoutes);
 
 router.use("/blog", blogRoutes);
-module.exports = router;
+export default router;

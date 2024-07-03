@@ -27,4 +27,4 @@ function checkAdmin() {
   };
 }
 
-module.exports = { isUser, checkLogin, checkAdmin };
+export { isUser, checkLogin, checkAdmin };

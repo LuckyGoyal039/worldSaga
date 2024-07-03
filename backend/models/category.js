@@ -1,5 +1,5 @@
-const sequelize = require("../config/db/connection");
-const { DataTypes } = require("sequelize");
+import sequelize from "../config/db/connection";
+import { DataTypes } from "sequelize";
 
 const Category = sequelize.define("category", {
   category_id: {

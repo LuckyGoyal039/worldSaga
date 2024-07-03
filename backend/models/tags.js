@@ -1,5 +1,5 @@
-const sequelize = require("../config/db/connection");
-const { DataTypes } = require("sequelize");
+import sequelize from "../config/db/connection";
+import { DataTypes } from "sequelize";
 
 const Tag = sequelize.define("tag", {
   tag_id: {
@@ -14,4 +14,4 @@ const Tag = sequelize.define("tag", {
   },
 });
 
-module.exports = Tag;
+export default Tag;

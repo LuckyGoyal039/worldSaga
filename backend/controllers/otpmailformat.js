@@ -1,4 +1,4 @@
-const otpGenerator = require("otp-generator");
+import otpGenerator from "otp-generator";
 let otp;
 
 function generateOTP() {
@@ -32,4 +32,4 @@ function mailFormat() {
   return format;
 }
 
-module.exports = { mailFormat, generateOTP };
+export { mailFormat, generateOTP };

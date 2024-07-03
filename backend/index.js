@@ -1,58 +1,68 @@
-const User = require("./models/user");
-const sequelize = require("./config/db/connection");
-const path = require("path");
-const bodyParser = require("body-parser");
-const express = require("express");
-const cors = require("cors");
-const ejs = require("ejs");
-const routes = require("./routes");
-const session = require("express-session");
-const Blog = require("./models/blog");
-const Roles = require("./models/roles");
-const Permissions = require("./models/permission");
-const AuditLog = require("./models/auditLogs");
-const Category = require("./models/category");
-const Comment = require("./models/comments");
-const FormData = require("./models/formData");
-require("dotenv").config();
-const flash = require("connect-flash");
+import User from "./models/user"
+// import sequelize from ("./config/db/connection");
+import path from "path";
+import bodyParser from "body-parser";
+import express from "express";
+import cors from "cors";
+// import ejs from "ejs";
+import routes from "./routes/index.js";
+// import session from "express-session";
+// import Blog from "./models/blog";
+// import Roles from "./models/roles"
+// import Permissions from "./models/permission";
+// import AuditLog from "./models/auditLogs";
+// import Category from "./models/category";
+// import Comment from "./models/comments";
+// import FormData from "./models/formData";
+// import flash from ("connect-flash");
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.set("view engine", "ejs");
 
 // app.set('views', path.resolve('./views'))
-app.set("views", path.join(__dirname, "/app/views"));
+// app.set("views", path.join(__dirname, "/app/views"));
 app.use(cors());
-app.use(express.static("./uploads"));
+// app.use(express.static("./uploads"));
 // app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //not working
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(
-    session({
-        secret: "secret-key",
-        resave: false,
-        saveUninitialized: false,
-    })
-);
+// app.use(
+//     session({
+//         secret: "secret-key",
+//         resave: false,
+//         saveUninitialized: false,
+//     })
+// );
 
-app.use(flash());
+// app.use(flash());
 app.use("/", routes);
 
+app.listen(8000, () => {
+    console.log("Server running on port: 8000")
+})
+
 // sync user table
-sequelize
-    .sync()
-    .then((result) => {
-        console.log("All models synced successfully");
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`server running on http://localhost:${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.log("Database synced failed: ", err);
-    });
+// sequelize
+//     .sync()
+//     .then((result) => {
+//         console.log("All models synced successfully");
+//         const PORT = process.env.PORT || 3000;
+//         app.listen(PORT, () => {
+//             console.log(`server running on http://localhost:${PORT}`);
+//         });
+//     })
+//     .catch((err) => {
+//         console.log("Database synced failed: ", err);
+//     });
+
+
+
+
 // https://hpbn.co/primer-on-latency-and-bandwidth/#speed-is-a-feature
 // https://www.bacancytechnology.com/blog/joi-validation-in-nodejs-and-express
 // https://sequelize.org/docs/v6/advanced-association-concepts/eager-loading/
@@ -90,3 +100,4 @@ sequelize
 // validate by user who write the blog
 
 // mailtrap.io
+
