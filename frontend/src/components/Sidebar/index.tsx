@@ -13,18 +13,18 @@ export default function Sidebar({ toggleSidebar }: any) {
                 <h6>My menu</h6>
                 <RxCross1 onClick={toggleSidebar} />
             </div>
-            <div className="options">
+            <a href='/home' className="options">
                 <FaHome />
-                <a href="/home">Home</a>
-            </div>
-            <div className="options">
+                <span>Home</span>
+            </a>
+            <a href="/about" className="options">
                 <FaCircleInfo />
-                <a href="/about">About</a>
-            </div>
-            <div className="options">
+                <span>About</span>
+            </a>
+            <a className="options" href="/sign-in">
                 <LuLogIn />
-                <a href="/login">Login</a>
-            </div>
+                <span>Sign Up</span>
+            </a>
         </div >
     )
 }
