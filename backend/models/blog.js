@@ -1,9 +1,9 @@
-const sequelize = require("../config/db/connection");
-const { DataTypes } = require("sequelize");
-const Category = require("./category");
-const Comments = require("./comments");
-const Tag = require("./tags");
-const User = require("./user");
+import sequelize from "../config/db/connection";
+import { DataTypes } from "sequelize";
+import Category from "./category";
+import Comments from "./comments";
+import Tag from "./tags";
+import User from "./user";
 
 const Blog = sequelize.define("Blog", {
   blog_id: {
@@ -65,4 +65,4 @@ Blog.belongsTo(Category, { foreignKey: "categoryId", onDelete: "CASCADE" });
 
 Blog.hasMany(Comments, { foreignKey: "blogId", onDelete: "CASCADE" });
 
-module.exports = Blog;
+export default Blog;

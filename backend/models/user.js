@@ -1,6 +1,6 @@
-const { DataTypes } = require("sequelize");
-const dbConnect = require("../config/db/connection");
-const Blog = require("./blog");
+import { DataTypes } from "sequelize";
+import dbConnect from "../config/db/connection";
+import Blog from "./blog";
 
 const User = dbConnect.define("User", {
   user_id: {
@@ -30,4 +30,4 @@ const User = dbConnect.define("User", {
   },
 });
 User.hasMany(Blog, { foreignKey: "userId", onDelete: "CASCADE" });
-module.exports = User;
+export default User;

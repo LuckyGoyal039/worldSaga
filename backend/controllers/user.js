@@ -1,14 +1,15 @@
-const User = require("../models/user");
-const bcrypt = require("bcrypt");
-const Sequelize = require("sequelize");
-const { Op } = require("sequelize");
-const flash = require("connect-flash");
-const app = require("express")();
-const nodemailer = require("nodemailer");
+import User from "../models/user";
+import bcrypt from "bcrypt";
+import Sequelize from "sequelize";
+import { Op } from "sequelize";
+import flash from "connect-flash";
+import nodemailer from "nodemailer";
+import express from "express";
+import { mailFormat, generateOTP } from "./otpmailformat";
+
+
 let genratedOtp;
-
-const { mailFormat, generateOTP } = require("./otpmailformat");
-
+const app = express();
 const userSignUp = async function (req, res) {
   const { username, email, password, otp } = req.body;
 
@@ -142,7 +143,7 @@ async function sendEmail(req, res) {
     html: mailFormat(), // html body
   });
 }
-module.exports = {
+export {
   userSignIn,
   userSignUp,
   getUsers,
