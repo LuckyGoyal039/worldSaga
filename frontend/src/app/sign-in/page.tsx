@@ -1,16 +1,38 @@
-
+'use client'
+import { useRef, useState } from 'react'
 import './sign-in.css'
 export default function SignIn() {
+    const email = useRef(null)
+    const password = useRef(null)
+    const [error, setError] = useState<string | null>(null);
+    async function handleSubmit(event: any) {
+        event.preventDefault();
+        let emailVal = email.current.value;
+        let passwordVal = password.current.value;
+        setError(null);
+        let url = ""
+        let userData = {
+            email: emailVal,
+            password: passwordVal
+        }
+        let response = await fetch(url, {
+            data: userData
+        })
+
+        if (!response.ok) {
+            setError("Something went wrong. Unable to sign In")
+        }
+    }
     return (
         <div className='main'>
-            <form className='signForm' >
+            <form className='signForm' onSubmit={handleSubmit}>
                 <div className='formFields'>
                     <label>Email</label>
-                    <input type="email" />
+                    <input type="email" ref={email} />
                 </div>
                 <div className='formFields'>
                     <label>Password</label>
-                    <input type="password" />
+                    <input type="password" ref={password} />
                 </div>
                 <div className='forgetPassword'>
                     <a href='/forget-password'><small>Forget password</small></a>

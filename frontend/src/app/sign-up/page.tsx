@@ -7,17 +7,34 @@ export default function SignUp() {
     const password = useRef(null)
     const confirmPassword = useRef(null)
     const [error, setError] = useState<string | null>(null);
-    function handleSubmit(event: any) {
+    async function handleSubmit(event: any) {
         event.preventDefault();
         let userNameVal = userName.current.value;
         let emailVal = email.current.value;
         let passwordVal = password.current.value;
         let confirmPasswordVal = confirmPassword.current.value;
 
-        passwordVal !== confirmPasswordVal ? setError("Password must be same") : setError(null);
+        if (passwordVal !== confirmPasswordVal) {
 
+            setError("Password must be same");
+            return;
+        }
+        setError(null);
+        let url = ""
+        let userData = {
+            name: userNameVal,
+            email: emailVal,
+            password: passwordVal
+        }
+        let response = await fetch(url, {
+            data:userData
+        })
 
-
+        if(!response.ok){
+            setError("Something went wrong. Unable to sign up")
+        }
+        
+        
     }
     return (
         <div className="main">
