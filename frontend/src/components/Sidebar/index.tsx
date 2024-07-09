@@ -7,6 +7,7 @@ import { FaCircleInfo } from "react-icons/fa6";
 import './sidebar.css'
 
 export default function Sidebar({ toggleSidebar }: any) {
+    
     return (
         <div className="main">
             <div className="menuOption">
