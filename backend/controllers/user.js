@@ -13,7 +13,7 @@ const prisma = new PrismaClient()
 // let genratedOtp;
 // const app = express();
 
-const userSignUp = async function (req, res) {
+export const userSignUp = async function (req, res) {
   try {
     const { username, email, password } = req.body;
     let isEmailValid = isValidEmail(email);
@@ -62,7 +62,7 @@ const userSignUp = async function (req, res) {
   }
 };
 
-const userSignIn = async function (req, res) {
+export const userSignIn = async function (req, res) {
   try {
     const { email, password } = req.body;
     // validate email format
@@ -91,6 +91,21 @@ const userSignIn = async function (req, res) {
     })
   }
 };
+
+export function userForgetPassword(req, res) {
+  try {
+    
+    return res.status(200).json({
+      msg: `Reset password email sent to ${req.body.emailVal}`
+    })
+
+  } catch (err) {
+    return res.status(500).json({
+      msg: "Something went wrong"
+    })
+  }
+
+}
 
 // async function getUsers(id) {
 //   const users = await User.findAll({
@@ -161,11 +176,11 @@ const userSignIn = async function (req, res) {
 //   });
 // }
 
-export {
-  userSignIn,
-  userSignUp,
-  // getUsers,
-  // changeUserType,
-  // userDelete,
-  // sendEmail,
-};
+// export {
+//   userSignIn,
+//   userSignUp,
+//   // getUsers,
+//   // changeUserType,
+//   // userDelete,
+//   // sendEmail,
+// };

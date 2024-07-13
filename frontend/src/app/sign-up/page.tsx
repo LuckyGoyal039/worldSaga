@@ -25,7 +25,7 @@ export default function SignUp() {
         }
         setPassError(null);
         setError(null);
-        let url = "http://localhost:8000/user/sign-up"
+        let url = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/user/sign-up`
         let userData = {
             name: userNameVal,
             email: emailVal,
