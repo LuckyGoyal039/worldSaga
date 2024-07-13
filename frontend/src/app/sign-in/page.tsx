@@ -10,13 +10,15 @@ export default function SignIn() {
         let emailVal = email.current.value;
         let passwordVal = password.current.value;
         setError(null);
-        let url = ""
+        let url = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/user/sign-in`
         let userData = {
             email: emailVal,
             password: passwordVal
         }
         let response = await fetch(url, {
-            data: userData
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
         })
 
         if (!response.ok) {

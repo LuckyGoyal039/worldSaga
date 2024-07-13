@@ -3,6 +3,7 @@ import express from "express";
 // import blogRoutes from "./blogRoutes";
 // import { getBlogs, getAuditLogs } from ("../controllers/blog");
 import {
+  userForgetPassword,
   userSignIn,
   userSignUp,
   // getUsers,
@@ -23,6 +24,7 @@ const router = express.Router();
 
 router.post('/user/sign-up', userSignUp)
 router.post('/user/sign-in', userSignIn)
+router.post('/user/forget-password', userForgetPassword)
 
 // router.get("/admin/createUser", checkAdmin(), (req, res) => {
 //   const admin = req.session.admin || false;
