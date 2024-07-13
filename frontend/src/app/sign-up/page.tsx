@@ -7,6 +7,7 @@ export default function SignUp() {
     const password = useRef(null)
     const confirmPassword = useRef(null)
     const [error, setError] = useState<string | null>(null);
+    const [passError, setPassError] = useState<string | null>(null);
     async function handleSubmit(event: any) {
         event.preventDefault();
         let userNameVal = userName.current.value;
@@ -15,26 +16,30 @@ export default function SignUp() {
         let confirmPasswordVal = confirmPassword.current.value;
 
         if (passwordVal !== confirmPasswordVal) {
-
-            setError("Password must be same");
+            setPassError("Confirm password not matched");
             return;
         }
+        if (passwordVal.length < 6) {
+            setPassError("Password must contain at least 6 digits")
+            return;
+        }
+        setPassError(null);
         setError(null);
-        let url = ""
+        let url = "http://localhost:8000/user/sign-up"
         let userData = {
             name: userNameVal,
             email: emailVal,
             password: passwordVal
         }
         let response = await fetch(url, {
-            data:userData
-        })
+            method: 'POST',
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(userData),
+        });
 
-        if(!response.ok){
+        if (!response.ok) {
             setError("Something went wrong. Unable to sign up")
         }
-        
-        
     }
     return (
         <div className="main">
@@ -50,6 +55,7 @@ export default function SignUp() {
                 <div className="formFields">
                     <label>Password</label>
                     <input type="password" ref={password} />
+                    {passError && <small className='passError'>{passError}</small>}
 
                 </div>
                 <div className="formFields">

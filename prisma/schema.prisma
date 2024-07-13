@@ -12,3 +12,38 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email_id         String    @unique
+  username         String
+  password         String
+  plan_id         Plans[]
+  plan_start_date DateTime  @default(now())
+  plan_end_date   DateTime?
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @default(now())
+  last_login       DateTime  @default(now())
+  status           Int       @default(1)
+  posts            Post[]
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model Plans {
+  id          Int      @id @default(autoincrement())
+  plan_name  String   @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  price       Float
+  description String?
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      Int?
+}
