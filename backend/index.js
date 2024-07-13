@@ -1,11 +1,12 @@
-import User from "./models/user"
-// import sequelize from ("./config/db/connection");
 import path from "path";
 import bodyParser from "body-parser";
 import express from "express";
 import cors from "cors";
-// import ejs from "ejs";
 import routes from "./routes/index.js";
+import dotenv from "dotenv";
+// import User from "./models/user"
+// import sequelize from ("./config/db/connection");
+// import ejs from "ejs";
 // import session from "express-session";
 // import Blog from "./models/blog";
 // import Roles from "./models/roles"
@@ -15,12 +16,9 @@ import routes from "./routes/index.js";
 // import Comment from "./models/comments";
 // import FormData from "./models/formData";
 // import flash from ("connect-flash");
-import dotenv from "dotenv";
-
 dotenv.config();
-
 const app = express();
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 
 // app.set('views', path.resolve('./views'))
 // app.set("views", path.join(__dirname, "/app/views"));
@@ -28,8 +26,8 @@ app.use(cors());
 // app.use(express.static("./uploads"));
 // app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //not working
 
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(
 //     session({
@@ -42,10 +40,34 @@ app.use(bodyParser.json());
 // app.use(flash());
 app.use("/", routes);
 
-app.listen(8000, () => {
-    console.log("Server running on port: 8000")
+
+// async function main() {
+//     // const user = await prisma.user.create({
+//     //     data: {
+//     //         name: 'test',
+//     //         email: 'test@prisma.io',
+//     //     },
+//     // })
+//     console.log(user)
+// }
+
+// main()
+//     .then(async () => {
+//         await prisma.$disconnect()
+//     })
+//     .catch(async (e) => {
+//         console.error(e)
+//         await prisma.$disconnect()
+//         process.exit(1)
+//     })
+const PORT = process.env.PORT || 8001
+app.listen(PORT, () => {
+    console.log(`Server running on port: ${PORT}`)
 })
 
+
+
+0
 // sync user table
 // sequelize
 //     .sync()
