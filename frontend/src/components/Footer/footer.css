@@ -1,0 +1,102 @@
+.copywrite {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 30px 50px;
+    opacity: 0.5;
+    font-size: small;
+}
+
+.flexbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.main {
+    /* min-height: 300px; */
+    border-top: 1px solid #fff;
+    padding-top: 50px;
+}
+
+.imageContainer {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+.resources {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.resourceText {
+    opacity: 0.5;
+    ;
+}
+
+.s-left {
+    /* border: 1px solid red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.s-right {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* border: 1px solid red; */
+    align-items: baseline;
+}
+
+.subscribe {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+}
+
+.subscribeMesg {
+    font-size: small;
+    opacity: 0.5;
+}
+
+.subscribeHead {
+    opacity: 0.5;
+}
+
+.subscribeEmail {
+    background-color: transparent;
+    width: 70%;
+}
+
+.subscribeEmail:focus {
+    border: none;
+    outline: none;
+}
+
+.inputBox {
+    display: flex;
+    background-color: #040404;
+    border-radius: 5px;
+    padding: 5px 0px 5px 7px;
+    gap: 10px;
+}
+
+.subBtn {
+    background-color: #3f3d3d;
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: small;
+    opacity: 0.5;
+}
+
+.subBtn:hover {
+    opacity: 1;
+}
