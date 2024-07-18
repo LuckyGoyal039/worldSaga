@@ -14,36 +14,60 @@ datasource db {
 }
 
 model User {
-  id               Int       @id @default(autoincrement())
-  email_id         String    @unique
-  username         String
-  password         String
-  plan_id         Plans[]
+  id              Int       @id @default(autoincrement())
+  email_id        String    @unique
+  username        String
+  password        String
+  plan_id         Int
   plan_start_date DateTime  @default(now())
   plan_end_date   DateTime?
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @default(now())
-  last_login       DateTime  @default(now())
-  status           Int       @default(1)
-  posts            Post[]
-}
-
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @default(now())
+  last_login      DateTime  @default(now())
+  status          Int       @default(1)
+  posts           Post[]
+  Comment         Comment[]
+  Plans           Plans[]
 }
 
 model Plans {
   id          Int      @id @default(autoincrement())
-  plan_name  String   @unique
+  plan_name   String   @unique
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now())
   price       Float
   description String?
-  User        User?    @relation(fields: [userId], references: [id])
   userId      Int?
+  User        User?    @relation(fields: [userId], references: [id])
+}
+
+model Post {
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String?
+  published  Boolean   @default(false)
+  authorId   Int
+  tags       String[]
+  category   String
+  logoUrl    String?
+  likes      Int       @default(0)
+  views      Int       @default(0)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  comments   Comment[] @relation("PostComments")
+  author     User      @relation(fields: [authorId], references: [id])
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  postId    Int
+  authorId  Int
+  parentId  Int?
+  children  Comment[] @relation("ChildComments")
+  post      Post      @relation(fields: [postId], references: [id], name: "PostComments")
+  author    User      @relation(fields: [authorId], references: [id])
+  parent    Comment?  @relation("ChildComments", fields: [parentId], references: [id])
 }
