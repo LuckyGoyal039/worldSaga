@@ -1,14 +1,15 @@
+import express from "express";
+import nodemailer from "nodemailer";
+import { PrismaClient } from '@prisma/client'
+import { checkPassword, encryptPassword, isValidEmail } from "./common.js";
+import jwt from 'jsonwebtoken';
+const prisma = new PrismaClient()
 // import User from "../models/user";
 // import bcrypt from "bcrypt";
 // import Sequelize, { where } from "sequelize";
 // import { Op } from "sequelize";
 // import flash from "connect-flash";
-// import nodemailer from "nodemailer";
-import express from "express";
 // import { mailFormat, generateOTP } from "./otpmailformat.js";
-import { PrismaClient } from '@prisma/client'
-import { checkPassword, encryptPassword, isValidEmail } from "./common.js";
-const prisma = new PrismaClient()
 
 // let genratedOtp;
 // const app = express();
@@ -45,13 +46,23 @@ export const userSignUp = async function (req, res) {
         password: hashPassword.hash,
         plan_end_date: null,
         plan_start_date: new Date(),
-        plan_id: {
-          connect: { id: currPlan.id },
-        }
+        plan_id: currPlan.id
       }
     })
+    let payLoad = {
+      id: newUser.id,
+      email_id: newUser.email_id,
+      plan_id: newUser.plan_id
+    }
+    let SEKRET_KEY = process.env.SECRET_KEY;
+    const token = jwt.sign(payLoad, SEKRET_KEY, { expiresIn: '30d' });
     return res.status(200).json({
-      user: newUser,
+      user: {
+        id: newUser.id,
+        email: newUser.email_id,
+        username: newUser.username
+      },
+      token: token,
       mesg: "Sign up successfully"
     })
   } catch (error) {
@@ -80,10 +91,24 @@ export const userSignIn = async function (req, res) {
         mesg: "Invalid Credentials"
       });
     }
+
+    let payLoad = {
+      id: isUser.id,
+      email_id: isUser.email_id,
+      plan_id: isUser.plan_id
+    }
+    let SEKRET_KEY = process.env.SECRET_KEY;
+    const token = jwt.sign(payLoad, SEKRET_KEY, { expiresIn: '30d' });
     return res.status(200).json({
-      msg: "SignIn Successfully",
-      user: isUser
+      user: {
+        id: isUser.id,
+        email: isUser.email_id,
+        username: isUser.username
+      },
+      token: token,
+      mesg: "Sign In successfully"
     })
+    
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -92,9 +117,9 @@ export const userSignIn = async function (req, res) {
   }
 };
 
-export function userForgetPassword(req, res) {
+export function forgetPassword(req, res) {
   try {
-    
+
     return res.status(200).json({
       msg: `Reset password email sent to ${req.body.emailVal}`
     })
@@ -105,6 +130,18 @@ export function userForgetPassword(req, res) {
     })
   }
 
+}
+
+export function logout(req, res) {
+  try {
+
+    console.log('dskjalogout')
+
+  } catch (err) {
+    return res.status(500).json({
+      msg: "Something went wrong."
+    })
+  }
 }
 
 // async function getUsers(id) {
@@ -151,36 +188,61 @@ export function userForgetPassword(req, res) {
 //   }
 // }
 
-// async function sendEmail(req, res) {
-//   const { email } = req.body;
-//   genratedOtp = generateOTP();
-//   const transporter = nodemailer.createTransport({
-//     // host: "live.smtp.mailtrap.io",
-//     host: "live.smtp.mailtrap.io",
-//     port: 587,
-//     secure: false,
-//     auth: {
-//       user: "api",
-//       pass: "d8d654977b245c9ecc83c028b639a111",
-//     },
-//   });
+// not working
+export async function emailVerificationMail(req, res) {
+  const { email } = req.body;
+  genratedOtp = generateOTP();
+  const transporter = nodemailer.createTransport({
+    // host: "live.smtp.mailtrap.io",
+    host: "live.smtp.mailtrap.io",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "api",
+      pass: "d8d654977b245c9ecc83c028b639a111",
+    },
+  });
 
-//   const info = await transporter.sendMail({
-//     // from: "info@mailtrap.com", // sender address
-//     from: "mailtrap@demomailtrap.com", // sender address
-//     // to: email, // list of receivers
-//     to: "goyallucky2020@gmail.com", // list of receivers
-//     subject: "Verifiction email", // Subject line
-//     text: genratedOtp,
-//     html: mailFormat(), // html body
-//   });
-// }
+  const info = await transporter.sendMail({
+    // from: "info@mailtrap.com", // sender address
+    from: "mailtrap@demomailtrap.com", // sender address
+    // to: email, // list of receivers
+    to: "goyallucky2020@gmail.com", // list of receivers
+    subject: "Verifiction email", // Subject line
+    text: genratedOtp,
+    html: mailFormat(), // html body
+  });
+}
 
-// export {
-//   userSignIn,
-//   userSignUp,
-//   // getUsers,
-//   // changeUserType,
-//   // userDelete,
-//   // sendEmail,
-// };
+// not working
+export async function createUserPost(req, res) {
+  try {
+    console.log('daskdasj')
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Something went wrong."
+    })
+  }
+}
+
+// not working
+export async function deleteUserPost(req, res) {
+  try {
+    console.log('daskdasj')
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Something went wrong."
+    })
+  }
+}
+// not working
+export async function updateUserPost(req, res) {
+  try {
+    console.log('daskdasj')
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Something went wrong."
+    })
+  }
+}
+

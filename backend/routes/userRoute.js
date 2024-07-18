@@ -1,46 +1,44 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   userSignIn,
   userSignUp,
-  sendEmail,
-} = require("../controllers/user");
-const { checkLogin } = require("../middlewares/user");
-const flash = require("connect-flash");
-const router = express.Router();
+  emailVerificationMail,
+  forgetPassword,
+  logout,
+  createUserPost,
+  deleteUserPost,
+  updateUserPost
+} from "../controllers/user.js";
+// const { checkLogin } = require("../middlewares/user");
+// const flash = require("connect-flash");
+const userRoutes = express.Router();
 
 // Sign-up
-router.get("/signup", checkLogin(), (req, res) => {
-  console.log(req.flash("error"));
-  res.render("signup", {
-    successMessage: req.flash("success"),
-    errorMessage: req.flash("error"),
-  });
-});
-router.post("/signup", userSignUp);
+userRoutes.post('/sign-up', userSignUp)
 
 // sign-in
-router.get("/login", checkLogin(), (req, res) => {
-  res.render("login", {
-    successMessage: req.flash("success"),
-    errorMessage: req.flash("error"),
-  });
-});
-router.post("/login", userSignIn);
+userRoutes.post('/sign-in', userSignIn)
+
+//forget-password
+userRoutes.post('/forget-password', forgetPassword)
 
 // logout
-router.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      // req.flash("error", "Something went wrong");
-      console.error("Error destroying session:", err);
-    } else {
-      // req.flash("success", "Logout Successfully");
-      res.redirect("/home");
-    }
-  });
-  delete res.locals.user;
-  delete res.locals.isAuthenticated;
-});
+// not working
+userRoutes.get("/logout", logout);
 
-router.post("/verifyemail", sendEmail);
-module.exports = router;
+//verify email
+userRoutes.post("/verifyemail", emailVerificationMail);
+
+// create new post
+// not working
+userRoutes.post('/create-post', createUserPost);
+
+// delete post
+// not working
+userRoutes.delete('/delete-post', deleteUserPost);
+
+// update post
+// not working
+userRoutes.put('/update-post', updateUserPost)
+
+export default userRoutes;

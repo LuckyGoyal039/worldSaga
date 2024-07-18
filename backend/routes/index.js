@@ -1,30 +1,37 @@
 import express from "express";
-// import userRoutes from "./userRoute";
+import userRoutes from "./userRoute.js";
+// import adminRoutes from "./admin"
 // import blogRoutes from "./blogRoutes";
 // import { getBlogs, getAuditLogs } from ("../controllers/blog");
-import {
-  userForgetPassword,
-  userSignIn,
-  userSignUp,
-  // getUsers,
-  // changeUserType,
-  // userDelete,
-} from "../controllers/user.js";
+
 import { checkAdmin } from "../middlewares/user.js";
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   res.redirect("/home");
-// });
-// // router.get("/home", getBlogs);
+// user routes
+router.use('/user', userRoutes)
 
-// router.get("/404", (req, res) => {
-//   res.render("page404");
-// });
+// admin routes
+// router.use('/admin', adminRoutes)
 
-router.post('/user/sign-up', userSignUp)
-router.post('/user/sign-in', userSignIn)
-router.post('/user/forget-password', userForgetPassword)
+// 
+router.post('/', (req, res) => {
+    try {
+        return res.status(200).json({
+            msg: "Hi from server"
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            msg: "Something went wrong"
+        })
+    }
+})
+
+export default router;
+
+
+// router.get("/home", getBlogs);
+
 
 // router.get("/admin/createUser", checkAdmin(), (req, res) => {
 //   const admin = req.session.admin || false;
@@ -56,4 +63,4 @@ router.post('/user/forget-password', userForgetPassword)
 // router.use("/user", userRoutes);
 
 // router.use("/blog", blogRoutes);
-export default router;
+

@@ -36,6 +36,6 @@
     "sequelize": "^6.37.0"
   },
   "devDependencies": {
-    "prisma": "^5.16.1"
+    "prisma": "^5.17.0"
   }
 }
