@@ -108,7 +108,7 @@ export const userSignIn = async function (req, res) {
       token: token,
       mesg: "Sign In successfully"
     })
-    
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -132,17 +132,23 @@ export function forgetPassword(req, res) {
 
 }
 
-export function logout(req, res) {
-  try {
+// no need of this. handle on client side
+// export function logout(req, res) {
+//   try {
+//     const token = req.body.token;
 
-    console.log('dskjalogout')
+//     black
+//     res.status(200).json({
+//       msg: "Logout Successfully"
+//     })
+//   } catch (err) {
+//     return res.status(500).json({
+//       msg: "Something went wrong."
+//     })
+//   }
+// }
 
-  } catch (err) {
-    return res.status(500).json({
-      msg: "Something went wrong."
-    })
-  }
-}
+
 
 // async function getUsers(id) {
 //   const users = await User.findAll({
@@ -217,7 +223,10 @@ export async function emailVerificationMail(req, res) {
 // not working
 export async function createUserPost(req, res) {
   try {
-    console.log('daskdasj')
+    const { } = req.body
+    const { } = re.file.path
+
+    console.log(req.user)
   } catch (error) {
     return res.status(500).json({
       msg: "Something went wrong."
