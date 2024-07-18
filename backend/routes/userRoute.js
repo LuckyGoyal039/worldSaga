@@ -1,14 +1,16 @@
 import express from "express";
+import imgUpload from '../middlewares/multer.js'
+
 import {
   userSignIn,
   userSignUp,
   emailVerificationMail,
   forgetPassword,
-  logout,
   createUserPost,
   deleteUserPost,
   updateUserPost
 } from "../controllers/user.js";
+import { authMiddleware } from "../middlewares/user.js";
 // const { checkLogin } = require("../middlewares/user");
 // const flash = require("connect-flash");
 const userRoutes = express.Router();
@@ -22,23 +24,19 @@ userRoutes.post('/sign-in', userSignIn)
 //forget-password
 userRoutes.post('/forget-password', forgetPassword)
 
-// logout
-// not working
-userRoutes.get("/logout", logout);
-
 //verify email
 userRoutes.post("/verifyemail", emailVerificationMail);
 
 // create new post
 // not working
-userRoutes.post('/create-post', createUserPost);
+userRoutes.post('/create-post', authMiddleware(), imgUpload.upload.single("image"), createUserPost);
 
 // delete post
 // not working
-userRoutes.delete('/delete-post', deleteUserPost);
+userRoutes.delete('/delete-post', authMiddleware(), deleteUserPost);
 
 // update post
 // not working
-userRoutes.put('/update-post', updateUserPost)
+userRoutes.put('/update-post', authMiddleware(), updateUserPost)
 
 export default userRoutes;
