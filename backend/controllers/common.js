@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 
-const isValidEmail = (email) => {
+export const isValidEmail = (email) => {
     // use zod instead of this
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 };
-const encryptPassword = (password) => {
+export const encryptPassword = (password) => {
     try {
         let saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
@@ -23,9 +23,18 @@ const encryptPassword = (password) => {
     }
 }
 
-const checkPassword = (password, text) => {
+export const checkPassword = (password, text) => {
     if (!password || !text) return false
     return bcrypt.compareSync(password, text);
 }
 
-export { isValidEmail, encryptPassword, checkPassword }
+export const checkEmptyFields = (...arg) => {
+    let check = false;
+    arg.forEach((entry) => {
+        if (!entry) {
+            check = true;
+            return false;
+        }
+    })
+    return check;
+}

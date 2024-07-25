@@ -1,7 +1,7 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import { PrismaClient } from '@prisma/client'
-import { checkPassword, encryptPassword, isValidEmail } from "./common.js";
+import { checkEmptyFields, checkPassword, encryptPassword, isValidEmail } from "./common.js";
 import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient()
 // import User from "../models/user";
@@ -223,10 +223,45 @@ export async function emailVerificationMail(req, res) {
 // not working
 export async function createUserPost(req, res) {
   try {
-    const { } = req.body
-    const { } = re.file.path
+    const { title, summary, category, content, tags } = req.body;
+    const filePath = req.file.path
 
+    let isEmpty = checkEmptyFields(title, summary, category, content, filePath)
+
+    if (isEmpty) {
+      return res.status(401).json({
+        msg: "Invalid user Inputs"
+      })
+    };
+
+    // same for tags, consider tags as array of string check each tag string in tag table and do the same
+    // create post with this constrants
+    let categoryDetails = await prisma.category.findUnique({
+      where: { category_name: category }
+    })
+    if (!categoryDetails && !categoryDetails?.length) {
+      categoryDetails = await prisma.category.create({
+        data: {
+          category_name: category
+        }
+      })
+    }
+    const { id: userId } = req.user;
+    let post = await prisma.post.create({
+      data: {
+        title: post,
+        content: postContent,
+        summary: postSummary,
+        published: true,
+        author_id: userId,
+        // logo_url: ,
+        categoryId: categoryDetails.id,
+      }
+    })
     console.log(req.user)
+    res.status(200).json({
+      msg: "Post Created Successfully"
+    })
   } catch (error) {
     return res.status(500).json({
       msg: "Something went wrong."

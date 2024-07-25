@@ -25,9 +25,10 @@ model User {
   updated_at      DateTime  @default(now())
   last_login      DateTime  @default(now())
   status          Int       @default(1)
-  posts           Post[]
+
+  Posts           Post[]
   Comment         Comment[]
-  Plans           Plans[]
+  Plans           Plans     @relation(fields: [plan_id], references: [id])
 }
 
 model Plans {
@@ -38,24 +39,25 @@ model Plans {
   price       Float
   description String?
   userId      Int?
-  User        User?    @relation(fields: [userId], references: [id])
+  User        User[]
 }
 
 model Post {
   id         Int       @id @default(autoincrement())
   title      String
   content    String?
+  summary    String?
   published  Boolean   @default(false)
-  authorId   Int
-  tags       String[]
-  category   String
-  logoUrl    String?
+  author_id  Int
+  categoryId Int
+  logo_url   String?
   likes      Int       @default(0)
   views      Int       @default(0)
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  comments   Comment[] @relation("PostComments")
-  author     User      @relation(fields: [authorId], references: [id])
+  Comments   Comment[] @relation("PostComments")
+  Author     User      @relation(fields: [author_id], references: [id])
+  Category   Category  @relation(fields: [categoryId], references: [id])
 }
 
 model Comment {
@@ -66,8 +68,15 @@ model Comment {
   postId    Int
   authorId  Int
   parentId  Int?
-  children  Comment[] @relation("ChildComments")
-  post      Post      @relation(fields: [postId], references: [id], name: "PostComments")
-  author    User      @relation(fields: [authorId], references: [id])
-  parent    Comment?  @relation("ChildComments", fields: [parentId], references: [id])
+  Children  Comment[] @relation("ChildComments")
+  Post      Post      @relation(fields: [postId], references: [id], name: "PostComments")
+  Author    User      @relation(fields: [authorId], references: [id])
+  Parent    Comment?  @relation("ChildComments", fields: [parentId], references: [id])
+}
+
+model Category {
+  id            Int    @id @default(autoincrement())
+  category_name String @unique
+  post_id       Int[]
+  Post          Post[]
 }
