@@ -1,7 +1,6 @@
-import express from "express";
 import nodemailer from "nodemailer";
 import { PrismaClient } from '@prisma/client'
-import { checkPassword, encryptPassword, isValidEmail } from "./common.js";
+import { checkEmptyFields, checkPassword, encryptPassword, isValidEmail, imagekitPut } from "./common.js";
 import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient()
 // import User from "../models/user";
@@ -26,7 +25,7 @@ export const userSignUp = async function (req, res) {
     const user = await prisma.user.findUnique({
       where: { email_id: email }
     })
-    if (user && user.length) {
+    if (user && user.id) {
       return res.status(403).json({
         mesg: "User already Exist"
       })
@@ -195,6 +194,7 @@ export function forgetPassword(req, res) {
 // }
 
 // not working
+
 export async function emailVerificationMail(req, res) {
   const { email } = req.body;
   genratedOtp = generateOTP();
@@ -220,24 +220,88 @@ export async function emailVerificationMail(req, res) {
   });
 }
 
-// not working
 export async function createUserPost(req, res) {
   try {
-    const { } = req.body
-    const { } = re.file.path
+    const { title, summary, category, content, tags } = req.body;
+    const { path: filePath, originalname } = req.file
 
-    console.log(req.user)
+    let isEmpty = checkEmptyFields(title, summary, category, content, filePath)
+    if (isEmpty) {
+      return res.status(401).json({
+        msg: "Invalid user Inputs"
+      })
+    };
+    // same for tags, consider tags as array of string check each tag string in tag table and do the same
+    // create post with this constrants
+    let categoryDetails = await prisma.category.findUnique({
+      where: { category_name: category }
+    })
+    if (!categoryDetails && !categoryDetails?.length) {
+      categoryDetails = await prisma.category.create({
+        data: {
+          category_name: category
+        }
+      })
+    }
+    const { id: userId } = req.user;
+    let imageResullt;
+    if (filePath) {
+      imageResullt = await imagekitPut(filePath, originalname)
+    }
+    // added tag was left
+    let post = await prisma.post.create({
+      data: {
+        title: title,
+        content: content,
+        summary: summary,
+        published: true,
+        author_id: userId,
+        logo_url: imageResullt.url,
+        categoryId: categoryDetails.id,
+      }
+    })
+    res.status(200).json({
+      msg: "Post Created Successfully"
+    })
   } catch (error) {
     return res.status(500).json({
       msg: "Something went wrong."
     })
   }
 }
-
 // not working
 export async function deleteUserPost(req, res) {
   try {
-    console.log('daskdasj')
+    const { postId } = req.body;// get encrypted id
+    const { id: userId } = req.user;
+    // decrypt postId
+    const originalId = 1234;
+
+    const post = await prisma.post.findUnique({
+      where: { id: originalId },
+      select: {
+        author_id: true
+      }
+    })
+    if (!post) {
+      return res.status(404).json({
+        error: "Post not found"
+      })
+    }
+    if (post.author_id !== userId) {
+      return req.status(403).json({
+        mesg: "Unauthorized user"
+      })
+    }
+    //else delete post
+    await prisma.post.delete({
+      where: {
+        id: originalId
+      }
+    })
+    return res.status(200).json({
+      mesg: "Post Deleted Successfully"
+    })
   } catch (error) {
     return res.status(500).json({
       msg: "Something went wrong."
@@ -247,7 +311,40 @@ export async function deleteUserPost(req, res) {
 // not working
 export async function updateUserPost(req, res) {
   try {
-    console.log('daskdasj')
+    const postId = req.params.id
+    const { title, summary, category, content, tags } = req.body;//all options that can be possible
+    const filePath = req.file.path
+    // update only those options which are not undefined
+    let categoryDetails = await prisma.category.findUnique({
+      where: { category_name: category }
+    })
+    if (!categoryDetails && !categoryDetails?.length) {
+      categoryDetails = await prisma.category.create({
+        data: {
+          category_name: category
+        }
+      })
+    }
+    const { id: userId } = req.user;
+    let post = await prisma.post.update({
+      where: {
+        id: postId
+      },
+      data: {
+        // title: title,
+        // content: content,
+        // summary: summary,
+        // published: true,
+        // author_id: userId,
+        // // logo_url: ,
+        // categoryId: categoryDetails.id,
+        // pass only those options which are not undefined
+      }
+    })
+    //console.log(req.user)
+    res.status(200).json({
+      msg: "Post Updated Successfully"
+    })
   } catch (error) {
     return res.status(500).json({
       msg: "Something went wrong."

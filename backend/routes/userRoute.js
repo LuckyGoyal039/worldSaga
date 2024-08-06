@@ -37,6 +37,6 @@ userRoutes.delete('/delete-post', authMiddleware(), deleteUserPost);
 
 // update post
 // not working
-userRoutes.put('/update-post', authMiddleware(), updateUserPost)
+userRoutes.put('/update-post/:id', authMiddleware(), updateUserPost)
 
 export default userRoutes;
