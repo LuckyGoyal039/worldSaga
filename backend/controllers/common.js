@@ -1,4 +1,33 @@
 import bcrypt from "bcrypt";
+import { readFile } from 'fs/promises';
+import imagekit from '../config/imagekitConfig.js';
+
+export async function imagekitPut(filePath, fileName, folderPath = '/', uniqueFileName = true) {
+    if (!filePath || !fileName) {
+        throw new Error("File path or file name is missing");
+    }
+
+    try {
+        const data = await readFile(filePath);
+        const result = await new Promise((resolve, reject) => {
+            imagekit.upload({
+                file: data,
+                fileName: fileName,
+                folder: folderPath,
+                useUniqueFileName: uniqueFileName
+            }, (error, result) => {
+                if (error) {
+                    reject(new Error("Something went wrong. Failed to upload file to ImageKit"));
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+        return result;
+    } catch (error) {
+        throw new Error(error.message || "Something went wrong");
+    }
+}
 
 export const isValidEmail = (email) => {
     // use zod instead of this
