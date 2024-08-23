@@ -61,3 +61,35 @@ export const getTrendingPosts = async (req, res) => {
         })
     }
 }
+export const getReleventCategories = async (req, res) => {
+    try {
+        const { limit, offset } = req.query;
+        const parsedLimit = parseInt(limit, 10);
+        const parsedOffset = parseInt(offset, 10) || 0;
+
+        // trends based on views
+        const categoryList = await prisma.category.findMany({
+            include: {
+                _count: {
+                    select: {
+                        Post: true
+                    }
+                }
+            },
+            orderBy: {
+                _count: {
+                    Post: 'desc'
+                }
+            },
+            take: parsedLimit,
+            skip: parsedOffset,
+        })
+        return res.status(200).json(categoryList);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            msg: "Something went wrong"
+        })
+    }
+}
