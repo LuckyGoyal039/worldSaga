@@ -53,7 +53,7 @@ export const userSignUp = async function (req, res) {
       email_id: newUser.email_id,
       plan_id: newUser.plan_id
     }
-    let SEKRET_KEY = process.env.SECRET_KEY;
+    let SEKRET_KEY = process.env.JWT_SECRET_KEY;
     const token = jwt.sign(payLoad, SEKRET_KEY, { expiresIn: '30d' });
     return res.status(200).json({
       user: {
@@ -96,7 +96,7 @@ export const userSignIn = async function (req, res) {
       email_id: isUser.email_id,
       plan_id: isUser.plan_id
     }
-    let SEKRET_KEY = process.env.SECRET_KEY;
+    let SEKRET_KEY = process.env.JWT_SECRET_KEY;
     const token = jwt.sign(payLoad, SEKRET_KEY, { expiresIn: '30d' });
     return res.status(200).json({
       user: {
@@ -116,6 +116,7 @@ export const userSignIn = async function (req, res) {
   }
 };
 
+//not working
 export function forgetPassword(req, res) {
   try {
 
@@ -195,6 +196,7 @@ export function forgetPassword(req, res) {
 
 // not working
 
+//not working
 export async function emailVerificationMail(req, res) {
   const { email } = req.body;
   genratedOtp = generateOTP();
@@ -231,8 +233,6 @@ export async function createUserPost(req, res) {
         msg: "Invalid user Inputs"
       })
     };
-    // same for tags, consider tags as array of string check each tag string in tag table and do the same
-    // create post with this constrants
     let categoryDetails = await prisma.category.findUnique({
       where: { category_name: category }
     })
@@ -272,7 +272,7 @@ export async function createUserPost(req, res) {
 // not working
 export async function deleteUserPost(req, res) {
   try {
-    const { postId } = req.body;// get encrypted id
+    const { postId } = req.body; // get encrypted id
     const { id: userId } = req.user;
     // decrypt postId
     const originalId = 1234;
