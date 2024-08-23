@@ -31,3 +31,33 @@ export const getPosts = async (req, res) => {
     }
 
 }
+export const getTrendingPosts = async (req, res) => {
+    try {
+        const { limit } = req.query;
+        const parsedLimit = parseInt(limit, 10);
+
+        // trends based on views
+        const blogList = await prisma.post.findMany({
+            select: {
+                id: true, title: true, summary: true, categoryId: true, logo_url: true, likes: true, views: true, created_at: true, updated_at: true,
+                Author: {
+                    select: {
+                        username: true,
+                        display_name: true
+                    }
+                }
+            },
+            orderBy: {
+                views: 'desc'
+            },
+            take: parsedLimit
+        })
+        return res.status(200).json(blogList);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            msg: "Something went wrong"
+        })
+    }
+}
