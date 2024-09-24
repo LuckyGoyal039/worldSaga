@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { PrismaClient } from '@prisma/client'
-import { checkEmptyFields, checkPassword, encryptPassword, isValidEmail, imagekitPut } from "./common.js";
+import { checkEmptyFields, checkPassword, encryptPassword, isValidEmail, imagekitPut, cryptId, decryptId } from "./common.js";
 import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient()
 // import User from "../models/user";
@@ -274,8 +274,13 @@ export async function deleteUserPost(req, res) {
   try {
     const { postId } = req.body; // get encrypted id
     const { id: userId } = req.user;
+    if (!postId) {
+      return res.json({
+        msg: 'Invalid Credentials'
+      })
+    }
     // decrypt postId
-    const originalId = 1234;
+    const originalId = decryptId(postId);
 
     const post = await prisma.post.findUnique({
       where: { id: originalId },
@@ -293,7 +298,7 @@ export async function deleteUserPost(req, res) {
         mesg: "Unauthorized user"
       })
     }
-    //else delete post
+    //delete post
     await prisma.post.delete({
       where: {
         id: originalId

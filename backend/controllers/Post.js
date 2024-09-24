@@ -16,9 +16,9 @@ export const getPosts = async (req, res) => {
             }
         });
 
-        const encryptedData = data.map(post => ({
-            ...post,
-            postId: cryptId(post.id?.toString()) // Ensure postId is a string
+        const encryptedData = data.map(({ id, ...rest }) => ({
+            ...rest,
+            postId: cryptId(id?.toString()) // crypt id
         }));
         return res.status(200).json({
             data: encryptedData

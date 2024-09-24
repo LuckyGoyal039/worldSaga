@@ -77,11 +77,11 @@ export function cryptId(text) {
     const cipher = crypto.createCipheriv(algorithm, Buffer.from(cryptoSecretKey), iv);
     let encrypted = cipher.update(text);
     encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return iv.toString('hex') + ':' + encrypted.toString('base64');
+    return iv.toString('base64') + ':' + encrypted.toString('base64');
 }
 export function decryptId(text) {
     const textParts = text.split(':');
-    const iv = Buffer.from(textParts.shift(), 'hex');
+    const iv = Buffer.from(textParts.shift(), 'base64');
     const encryptedText = Buffer.from(textParts.join(':'), 'base64');
     const decipher = crypto.createDecipheriv(algorithm, Buffer.from(cryptoSecretKey), iv);
     let decrypted = decipher.update(encryptedText);
