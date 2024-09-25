@@ -1,6 +1,6 @@
 
 import Image from "next/image"
-import './getStarted.css'
+import styles from './getStarted.module.css'
 // import { FaRegCopyright } from "react-icons/fa";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Link from "next/link";
@@ -9,15 +9,15 @@ import ForgroundDesktop from '../../assets/images/foregroundDesktop.jpg'
 export default function GetStarted() {
     return (
 
-        <div className="OuterMost">
-            <div className="flexDiv">
-                <div className="sideLeft">
-                    <div className="subBlogHead">
+        <div className={`${styles.OuterMost}`}>
+            <div className={`${styles.flexDiv}`}>
+                <div className={`${styles.sideLeft}`}>
+                    <div className={`${styles.subBlogHead}`}>
                         <h4>Website</h4>
                         <span><ArrowBackIosIcon /></span>
                         <h4>Blogs</h4>
                     </div>
-                    <div className="createBlog">
+                    <div className={`${styles.createBlog}`}>
                         <h2>Create a blog</h2>
                     </div>
                     <div>
@@ -28,9 +28,9 @@ export default function GetStarted() {
                     </div>
 
                 </div>
-                <div className="sideRight">
-                    <div className="imageWrap">
-                        <Image src={ForgroundDesktop} width={800} height={700} />
+                <div className={`${styles.sideRight}`}>
+                    <div className={`${styles.imageWrap}`}>
+                        <Image src={ForgroundDesktop} width={800} height={700} className={`${styles.foreground}`} alt="Forground" />
                     </div>
                 </div>
             </div>

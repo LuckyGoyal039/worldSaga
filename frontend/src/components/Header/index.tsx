@@ -1,15 +1,13 @@
 
 import Image from "next/image"
-// import mainLogo from '/image/ws.png'
-import './header.css'
-// import { RxHamburgerMenu } from "react-icons/rx";
+import styles from './header.module.css'
 import DragHandleOutlinedIcon from '@mui/icons-material/DragHandleOutlined';
 import Link from "next/link";
 export default function Header({ toggleSidebar }: any) {
     return (
-        <div className="headerMain border-red-500">
-            <div className="header-left">
-                <div className="mainLogoContainer">
+        <div className={`${styles.headerMain} border-red-500`}>
+            <div className={`${styles.headerLeft}`}>
+                <div className={`${styles.mainLogoContainer}`}>
                     <Link href={'/'}>
                         <Image
                             src={'/image/ws.png'}
@@ -21,10 +19,10 @@ export default function Header({ toggleSidebar }: any) {
                     </Link>
                 </div>
                 <Link href={'/'}>
-                    <h3 className="worldSaga">WorldSaga</h3>
+                    <h3 className={`${styles.worldSaga}`}>WorldSaga</h3>
                 </Link>
             </div>
-            <div className="header-right">
+            <div className={`${styles.headerRight}`}>
                 <div className="hidden md:block">
                     <Link href={'/our-story'}>Our Story</Link>
                 </div>
@@ -40,11 +38,11 @@ export default function Header({ toggleSidebar }: any) {
 
                     <Link href={'/sign-in'}>Get Started</Link>
                 </div>
-                <div className="loginDiv">
+                <div className={`${styles.loginDiv}`}>
                     <Link href={'/sign-in'}>Log in</Link>
-                    <span>L</span>
+                    <span className="L">L</span>
                 </div>
-                <div className="singupDiv">
+                <div className={`{styles.singupDiv}`}>
                     <Link href={'/sign-in'}>Sign up</Link>
                 </div>
                 <div className="md:hidden">

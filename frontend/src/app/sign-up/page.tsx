@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react';
-import './sign-up.css'
+import styles from './signUp.module.css'
 export default function SignUp() {
     const userName = useRef(null)
     const email = useRef(null)
@@ -42,23 +42,23 @@ export default function SignUp() {
         }
     }
     return (
-        <div className="main">
-            <form className="signForm" onSubmit={handleSubmit}>
-                <div className="formFields">
+        <div className={`${styles.main}`}>
+            <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
+                <div className={`${styles.formFields}`}>
                     <label>Username</label>
                     <input type="text" ref={userName} />
                 </div>
-                <div className="formFields">
+                <div className={`${styles.formFields}`}>
                     <label>Email</label>
                     <input type="email" ref={email} />
                 </div>
-                <div className="formFields">
+                <div className={`${styles.formFields}`}>
                     <label>Password</label>
                     <input type="password" ref={password} />
-                    {passError && <small className='passError'>{passError}</small>}
+                    {passError && <small className={`${styles.passError}`}>{passError}</small>}
 
                 </div>
-                <div className="formFields">
+                <div className={`${styles.formFields}`}>
                     <label>Confirm Password</label>
                     <input type="password" ref={confirmPassword} />
 

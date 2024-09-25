@@ -39,15 +39,14 @@
     ;
 }
 
-.s-left {
-    /* border: 1px solid red; */
+.sLeft {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.s-right {
+.sRight {
     width: 100%;
     display: flex;
     justify-content: space-around;

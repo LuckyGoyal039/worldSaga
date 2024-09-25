@@ -5,7 +5,7 @@
     background-repeat: no-repeat;
     height: 800px;
     width: 100%;
-    padding: 270px  40px 0  ;
+    padding: 270px 40px 0;
 }
 
 .flexDiv {
@@ -13,26 +13,26 @@
     justify-content: space-between;
 }
 
-.subBlogHead{
+.subBlogHead {
     display: flex;
     gap: 10px;
     font-size: large;
 }
 
-.createBlog{
+.createBlog {
     font-size: large;
 }
 
-.sideLeft{
+.sideLeft {
     width: 40%;
 }
 
-.imageWrap{
+.imageWrap {
     width: 700px;
     height: 440px;
     overflow: hidden;
-    img{
-        overflow: hidden;
-    }
+}
 
+.foreground {
+    overflow: hidden;
 }
