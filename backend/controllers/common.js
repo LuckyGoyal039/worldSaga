@@ -1,6 +1,10 @@
 import bcrypt from "bcrypt";
 import { readFile } from 'fs/promises';
 import imagekit from '../config/imagekitConfig.js';
+import crypto from 'crypto';
+
+const algorithm = 'aes-256-cbc';
+const cryptoSecretKey = process.env.CRYPTO_SECRET_KEY;
 
 export async function imagekitPut(filePath, fileName, folderPath = '/', uniqueFileName = true) {
     if (!filePath || !fileName) {
@@ -66,4 +70,21 @@ export const checkEmptyFields = (...arg) => {
         }
     })
     return check;
+}
+
+export function cryptId(text) {
+    const iv = crypto.randomBytes(16); // Generate a random initialization vector for each encryption
+    const cipher = crypto.createCipheriv(algorithm, Buffer.from(cryptoSecretKey), iv);
+    let encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return iv.toString('base64') + ':' + encrypted.toString('base64');
+}
+export function decryptId(text) {
+    const textParts = text.split(':');
+    const iv = Buffer.from(textParts.shift(), 'base64');
+    const encryptedText = Buffer.from(textParts.join(':'), 'base64');
+    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(cryptoSecretKey), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
 }

@@ -5,16 +5,11 @@ import userRoutes from "./userRoute.js";
 // import { getBlogs, getAuditLogs } from ("../controllers/blog");
 
 import { checkAdmin } from "../middlewares/user.js";
+import postRoutes from "./postRoutes.js";
 const router = express.Router();
 
-// user routes
-router.use('/user', userRoutes)
-
-// admin routes
-// router.use('/admin', adminRoutes)
-
-// 
-router.post('/', (req, res) => {
+// home
+router.get('/', (req, res) => {
     try {
         return res.status(200).json({
             msg: "Hi from server"
@@ -26,6 +21,15 @@ router.post('/', (req, res) => {
         })
     }
 })
+
+//post routes
+router.use('/posts', postRoutes)
+
+// user routes
+router.use('/user', userRoutes)
+
+// admin routes
+// router.use('/admin', adminRoutes)
 
 export default router;
 

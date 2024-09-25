@@ -1,14 +1,14 @@
 'use client'
 import { useRef, useState } from 'react'
-import './sign-in.css'
+import styles from './signIn.module.css'
 export default function SignIn() {
     const email = useRef(null)
     const password = useRef(null)
     const [error, setError] = useState<string | null>(null);
     async function handleSubmit(event: any) {
         event.preventDefault();
-        let emailVal = email.current.value;
-        let passwordVal = password.current.value;
+        let emailVal = email.current?.value;
+        let passwordVal = password.current?.value;
         setError(null);
         let url = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/user/sign-in`
         let userData = {
@@ -26,17 +26,17 @@ export default function SignIn() {
         }
     }
     return (
-        <div className='main'>
-            <form className='signForm' onSubmit={handleSubmit}>
-                <div className='formFields'>
+        <div className={`${styles.main}`}>
+            <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
+                <div className={`${styles.formFields}`}>
                     <label>Email</label>
                     <input type="email" ref={email} />
                 </div>
-                <div className='formFields'>
+                <div className={`${styles.formFields}`}>
                     <label>Password</label>
                     <input type="password" ref={password} />
                 </div>
-                <div className='forgetPassword'>
+                <div className={`${styles.forgetPassword}`}>
                     <a href='/forget-password'><small>Forget password</small></a>
                 </div>
                 <div>

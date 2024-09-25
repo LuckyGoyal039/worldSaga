@@ -22,13 +22,14 @@ userRoutes.post('/sign-up', userSignUp)
 userRoutes.post('/sign-in', userSignIn)
 
 //forget-password
+//not working
 userRoutes.post('/forget-password', forgetPassword)
 
 //verify email
+//not working
 userRoutes.post("/verifyemail", emailVerificationMail);
 
 // create new post
-// not working
 userRoutes.post('/create-post', authMiddleware(), imgUpload.upload.single("image"), createUserPost);
 
 // delete post

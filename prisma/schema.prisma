@@ -16,7 +16,8 @@ datasource db {
 model User {
   id              Int       @id @default(autoincrement())
   email_id        String    @unique
-  username        String
+  username        String    @unique
+  display_name    String    @default("")
   password        String
   plan_id         Int
   plan_start_date DateTime  @default(now())
@@ -25,7 +26,6 @@ model User {
   updated_at      DateTime  @default(now())
   last_login      DateTime  @default(now())
   status          Int       @default(1)
-
   Posts           Post[]
   Comment         Comment[]
   Plans           Plans     @relation(fields: [plan_id], references: [id])

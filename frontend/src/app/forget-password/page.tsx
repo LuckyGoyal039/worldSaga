@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState } from 'react';
-import './forget-password.css'
+import styles from './forgetPassword.module.css'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 export default function ForgetPassword() {
@@ -23,13 +23,13 @@ export default function ForgetPassword() {
         // set error;
     }
     return (
-        <div className='main'>
-            <form className='signForm' onSubmit={handleSubmit}>
-                <div className='formFields'>
+        <div className={`${styles.main}`}>
+            <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
+                <div className={`${styles.formFields}`}>
                     <label>Email</label>
                     <input type="email" ref={email} required />
                 </div>
-                <div className='buttons'>
+                <div className={`${styles.buttons}`}>
                     <Link href='/sign-in' className="bg-red-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 border border-red-700 rounded">
                         Cancel
                     </Link>
