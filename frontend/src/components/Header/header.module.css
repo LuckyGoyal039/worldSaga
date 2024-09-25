@@ -1,21 +1,52 @@
+.headerOuter {
+    width: 100%;
+    transition: all 0.5s ease;
+
+    /* @media (max-width: 1100px) {
+        padding: 10px 20px
+    }
+
+    @media (max-width: 600px) {
+        padding: 10px 10px;
+        top: 1px;
+    } */
+}
+
+.headerFixed {
+    position: fixed;
+    top: 10px;
+    padding: 10px 200px;
+
+    @media (max-width: 1100px) {
+        padding: 10px 20px
+    }
+
+    @media (max-width: 600px) {
+        padding: 10px 10px;
+        top: 1px;
+    }
+}
+
 .headerMain {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
-    border-radius: 12px;
     border: 0.5px solid #252525;
     z-index: 10;
+    padding: 20px 40px;
 
     @media (max-width: 600px) {
         padding: 12px 10px;
     }
 }
 
-
+.headerMainFixed {
+    border-radius: 12px;
+    padding: 5px 10px;
+}
 
 .mainLogoContainer {
     width: 30px;
