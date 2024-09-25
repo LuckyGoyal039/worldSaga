@@ -5,35 +5,97 @@
     background-repeat: no-repeat;
     height: 800px;
     width: 100%;
-    padding: 270px 40px 0;
-    overflow: hidden;
+    padding: 170px 40px 0;
+
+    @media (max-width:1100px) {
+        padding: 50px;
+        height: 1000px;
+    }
+    
+    @media (max-width: 600px) {
+        padding: 50px 15px 0;
+        height: 800px;
+    }
 }
 
 .flexDiv {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    @media (max-width:1100px) {
+        flex-direction: column;
+        gap: 100px;
+    }
+
+    @media (max-width: 600px) {
+        gap: 40px;
+    }
 }
 
 .subBlogHead {
     display: flex;
     gap: 10px;
-    font-size: large;
+    font-size: 25px;
+    padding-left: 5px;
+
+    @media (max-width:1100px) {
+        font-size: 14px;
+        padding: 0;
+    }
 }
 
 .createBlog {
-    font-size: large;
+    font-size: 80px;
+
+    @media (max-width:1100px) {
+        font-size: 30px;
+    }
 }
 
 .sideLeft {
     width: 40%;
+    padding-top: 80px;
+
+    @media (max-width:1100px) {
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 63%;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        align-items: start;
+        width: 100%;
+        text-align: start;
+    }
 }
 
 .imageWrap {
     width: 700px;
     height: 440px;
     overflow: hidden;
+
+    @media (max-width:1100px) {
+        width: 600px;
+        height: 380px;
+    }
+    @media (max-width:600px){
+        width: 375px;
+        height: 250px;
+    }
 }
 
 .foreground {
-    overflow: hidden;
+    /* overflow: hidden; */
+}
+
+.buttonWrap {
+    padding-top: 20px;
+}
+
+.getStartedBtn {
+    border-radius: 6px;
 }
