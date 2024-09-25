@@ -8,7 +8,6 @@ import Head from "next/head";
 import type { Metadata } from 'next'
 import GetStarted from "@/components/GetStarted";
 import PlayWithGrid from "@/components/PlayWithGrid";
-import HeaderWrap from "@/components/HeaderWrap";
 
 export default function Home() {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -22,7 +21,7 @@ export default function Home() {
           {/* not working */}
           <title>WorldSaga</title>
         </Head>
-        <HeaderWrap />
+        <Header/>
         <GetStarted />
         <PlayWithGrid/>
         <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
