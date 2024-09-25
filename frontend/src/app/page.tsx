@@ -6,6 +6,9 @@ import { useState } from "react";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import type { Metadata } from 'next'
+import GetStarted from "@/components/GetStarted";
+import PlayWithGrid from "@/components/PlayWithGrid";
+import HeaderWrap from "@/components/HeaderWrap";
 
 export default function Home() {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -19,9 +22,11 @@ export default function Home() {
           {/* not working */}
           <title>WorldSaga</title>
         </Head>
-        <Header toggleSidebar={toggleSidebar} />
+        <HeaderWrap />
+        <GetStarted />
+        <PlayWithGrid/>
         <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
-          <Sidebar toggleSidebar={toggleSidebar} />
+          {/* <Sidebar toggleSidebar={toggleSidebar} /> */}
         </div>
         <Footer />
       </main>

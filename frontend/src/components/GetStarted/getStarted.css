@@ -1,0 +1,38 @@
+.OuterMost {
+    background-image: url('../../assets/images/landingPageImage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 800px;
+    width: 100%;
+    padding: 270px  40px 0  ;
+}
+
+.flexDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subBlogHead{
+    display: flex;
+    gap: 10px;
+    font-size: large;
+}
+
+.createBlog{
+    font-size: large;
+}
+
+.sideLeft{
+    width: 40%;
+}
+
+.imageWrap{
+    width: 700px;
+    height: 440px;
+    overflow: hidden;
+    img{
+        overflow: hidden;
+    }
+
+}
