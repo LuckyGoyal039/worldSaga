@@ -1,10 +1,90 @@
-.gridOuter{
-    /* padding: 20px 30px; */
+.gridOuter {
+    width: 800px
 }
 
-.mainGrid{
+.mainGrid {
     display: grid;
-    /* row-gap: 10px;
-    column-gap: 10px; */
     margin-top: 30px;
+    height: 400px;
+    overflow: hidden;
+}
+.manonryBlog {}
+
+.sideBySide {
+    padding: 0 25px;
+    grid-template-columns: 50% 50%;
+    row-gap: 20px;
+}
+
+
+.singleColumn {
+    place-items: center;
+}
+
+.basicGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.basicGrid>*:nth-child(1),
+.basicGrid>*:nth-child(3) {
+    order: 0;
+}
+
+.basicGrid>*:nth-child(2),
+.basicGrid>*:nth-child(4) {
+    order: 1
+}
+
+
+.alternateSide {}
+
+.headerWrap {
+    padding: 20px;
+}
+
+.hrLine {
+    margin: 0 20px;
+    border-top: 1px solid #000;
+}
+
+.content {
+    color: #000;
+    margin-top: 15px;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.readMore {
+    text-decoration: underline;
+}
+
+.textColor {
+    color: #c2935f
+}
+
+.morningTea {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 25px;
+}
+
+.mydate {
+    font-size: 11px;
+}
+
+.imageGreen {
+    width: 360px;
+    height: 220px;
+}
+
+.imageRed {
+    width: 360px;
+    height: 250px;
 }
