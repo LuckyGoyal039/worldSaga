@@ -8,44 +8,56 @@ import Fakeheader from "../FakeHeader";
 export default function GridComp() {
     return (
         <div className={styles.gridOuter}>
-            <Fakeheader />
-            <div className={styles.mainGrid}>
+
+            <div className={styles.headerWrap}>
+                <Fakeheader />
+            </div>
+
+            <hr className={styles.hrLine}></hr>
+
+            <div className={`${styles.mainGrid} ${styles.basicGrid}`}>
                 <div>
-                    <Image src={GreenImage} alt="Green" width={100} height={100} />
+                    <Image src={GreenImage} alt="Green" width={300} height={300} className={styles.imageGreen} />
                 </div>
-                <div>
-                    <div><small>07.24.2020</small></div>
-                    <div>
-                        <h1>Morning Tea</h1>
+                <div className={styles.content}>
+                    <div className={`${styles.textCenter}`}>
+                        <small className={`${styles.textColor} ${styles.mydate} `}>07.24.2020</small>
                     </div>
                     <div>
-                        <span>
-                            Lorem ipsum dolor sit amet consectetur adipiscing elic,sed do eirsmod tempor incididunt ut labore et dolore
+                        <h1 className={`${styles.textColor} ${styles.morningTea} ${styles.textCenter} `}>Morning Tea</h1>
+                    </div>
+                    <div className={`${styles.textCenter} ${styles.width50}`}>
+                        <span >
+                            <small>
+                                Lorem ipsum dolor sit amet consectetur adipiscing elic,sed do eirsmod tempor incididunt ut labore et dolore
+                            </small>
                         </span>
                     </div>
                     <div>
-                        <small>Read More</small>
+                        <small className={`${styles.readMore} ${styles.textColor}`}>Read More</small>
                     </div>
                 </div>
 
-                <div><Image src={RedImage} alt="Red" width={100} height={100}/></div>
-
                 <div>
-                    <div><small>07.24.2020</small></div>
+                    <Image src={RedImage} alt="Red" width={360} height={360} className={styles.imageRed} />
+                </div>
+                <div className={styles.content}>
+                    <div><small className={`${styles.textColor} ${styles.mydate}`}>07.24.2020</small></div>
                     <div>
-                        <h1>Work Coffee</h1>
+                        <h1 className={`${styles.textColor} ${styles.morningTea}`}>something else</h1>
                     </div>
                     <div>
                         <span>
-                            Lorem ipsum dolor sit amet consectetur adipiscing elic,sed do eirsmod tempor incididunt ut labore et dolore
+                            <small>
+                                Lorem ipsum dolor sit amet consectetur adipiscing elic,sed do eirsmod tempor incididunt ut labore et dolore
+                            </small>
                         </span>
                     </div>
                     <div>
-                        <small>Read More</small>
+                        <small className={`${styles.readMore} ${styles.textColor}`}>Read More</small>
                     </div>
                 </div>
             </div>
-        </div >
-
+        </div>
     )
 }
