@@ -1,5 +1,7 @@
 .gridWrap {
     background-color: rgb(210, 196, 179);
+    border-radius: 10px;
+    margin-left: 35px;
 }
 
 .outerMost {

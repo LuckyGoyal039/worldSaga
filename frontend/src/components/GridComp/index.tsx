@@ -17,7 +17,7 @@ export default function GridComp({ currOption }: { currOption: number }) {
             <hr className={styles.hrLine}></hr>
 
             <div className={`${styles.mainFlex} flex ${currOption == 1 ? 'flex-row' : 'flex-col'}`}>
-                <div className={`flex ${currOption == 1 || currOption == 3 ? 'flex-col' : 'flex-row gap-5 px-5'}`}>
+                <div className={`flex ${currOption == 1 || currOption == 3 ? 'flex-col sm:px-0 px-6' : 'flex-row gap-5 px-5 '} `}>
                     <div className="flex justify-center">
                         <Image src={GreenImage} alt="Green" width={300} height={300} className={styles.imageGreen} />
                     </div>
@@ -28,7 +28,7 @@ export default function GridComp({ currOption }: { currOption: number }) {
                         <div>
                             <h1 className={`${styles.textColor} ${styles.morningTea}`}>Morning Tea</h1>
                         </div>
-                        <div className={`${currOption == 1 ? 'text-center' : ''} ${currOption == 3 ? 'w-80 text-center' : ''}`}>
+                        <div className={`${currOption == 1 ? 'text-center' : ''} ${currOption == 3 ? 'w-80 text-center sm:w-80 w-72' : ''}`}>
                             <span>
                                 <small>
                                     Lorem ipsum dolor sit amet consectetur adipiscing elic,sed do eirsmod tempor incididunt ut labore et dolore
