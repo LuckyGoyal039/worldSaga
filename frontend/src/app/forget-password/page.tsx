@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import styles from './forgetPassword.module.css'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
 export default function ForgetPassword() {
     const email = useRef(null);
     const [error, setError] = useState<string | null>(null);
@@ -23,21 +24,27 @@ export default function ForgetPassword() {
         // set error;
     }
     return (
-        <div className={`${styles.main}`}>
-            <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
-                <div className={`${styles.formFields}`}>
-                    <label>Email</label>
-                    <input type="email" ref={email} required className='border-white border-2 text-black'/>
+        <>
+            <Header />
+            <div className={`${styles.main}`}>
+                <div className='px-10 pb-12 pt-5 rounded-xl bg-white text-black w-96'>
+                    <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
+                        <h1 className='text-2xl underline'>Forget Password</h1>
+                        <div className={`flex flex-col w-full`}>
+                            <label>Email</label>
+                            <input type="email" ref={email} required className='border-black border-2 text-black rounded h-8' />
+                        </div>
+                        <div className='flex gap-3 justify-end w-full'>
+                            <Link href='/sign-in' className="bg-red-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 border border-red-700 rounded">
+                                Cancel
+                            </Link>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                                Send email
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div className={`${styles.buttons}`}>
-                    <Link href='/sign-in' className="bg-red-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 border border-red-700 rounded">
-                        Cancel
-                    </Link>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                        Send email
-                    </button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </>
     )
 }
