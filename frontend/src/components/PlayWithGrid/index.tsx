@@ -11,18 +11,16 @@ import CheckIcon from '@mui/icons-material/Check';
 import GridComp from "../GridComp";
 import { useState } from "react";
 export default function GetStarted() {
-    const [selectedOption, setSelectedOption] = useState(1);
+    const [selectedOption, setSelectedOption] = useState(3);
 
     const flexList: { value: number; label: string }[] = [
-        { value: 1, label: 'Masonry Blog' },
+        { value: 1, label: 'Basic Grid' },
         { value: 2, label: 'Side by Side Blog' },
         { value: 3, label: 'Single Column Blog' },
-        { value: 4, label: 'Basic Grid' },
-        { value: 5, label: 'Alternative Side by Side Blog' }
+        { value: 4, label: 'Alternative Side by Side Blog' }
     ]
     const selectOption = (event: any) => {
-        console.log(event.target.value);
-        setSelectedOption(event.target.value)
+        setSelectedOption(event.target.value);
     }
     return (
 
@@ -32,7 +30,7 @@ export default function GetStarted() {
             </div>
             <div className={styles.item2}>
                 <div className={styles.gridWrap}>
-                    <GridComp />
+                    <GridComp currOption={selectedOption}/>
                 </div>
             </div>
             <div className={styles.item3}>
