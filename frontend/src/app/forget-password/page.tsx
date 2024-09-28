@@ -27,7 +27,7 @@ export default function ForgetPassword() {
             <form className={`${styles.signForm}`} onSubmit={handleSubmit}>
                 <div className={`${styles.formFields}`}>
                     <label>Email</label>
-                    <input type="email" ref={email} required />
+                    <input type="email" ref={email} required className='border-white border-2 text-black'/>
                 </div>
                 <div className={`${styles.buttons}`}>
                     <Link href='/sign-in' className="bg-red-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 border border-red-700 rounded">
